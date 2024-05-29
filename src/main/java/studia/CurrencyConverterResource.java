@@ -5,9 +5,11 @@ import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
 
 import java.util.*;
+import java.util.logging.Logger;
 
 @Path("/converter")
 public class CurrencyConverterResource {
+    private static final Logger logger = Logger.getLogger(CurrencyRequest.class.getName());
     private static final Map<String, Double> exchangeRates = new HashMap<>();
     private static final List<String> supportedCurrencies = Arrays.asList("USD", "EUR", "PLN");
 
@@ -39,9 +41,8 @@ public class CurrencyConverterResource {
         }
 
         if (rate == null) {
-            return Response.status(Response.Status.BAD_REQUEST)
-                    .entity("Unsupported currency conversion: " + request.from + " to " + request.to)
-                    .build();
+            logger.info("rate is null");
+            return Response.status(Response.Status.BAD_REQUEST).build();
         }
 
         double convertedAmount = request.amount * rate;
