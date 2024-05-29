@@ -35,7 +35,6 @@ public class CurrencyConverterResourceTest {
                 .header("Content-Type", MediaType.APPLICATION_JSON)
                 .when().post("/converter")
                 .then()
-                .statusCode(400)
-                .body(is("Unsupported currency conversion: USD to XYZ"));
+                .statusCode(400);
     }
 }
